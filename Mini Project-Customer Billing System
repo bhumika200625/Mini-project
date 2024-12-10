@@ -1,0 +1,103 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+//Sructure for storing customer details
+struct Customer{
+   char name[50];
+   char address[100];
+   int customerld;
+ };
+
+ //Structure for storing product details
+ struct Product{
+    char productName[50];
+    int quantity;
+    float price;
+ };
+
+ //Function to calculate total amount
+ float calculateTotal(struct Product products[],int numProducts){
+    float total =0.0;
+    for(int i=0;i < numProducts;i++){
+      total += products[i].quantity*
+   products[i].price;
+     }
+     return total;
+  }
+
+  // Function to display the bill
+  void displayBill(struct Customer
+  customer,struct Product products[],int
+  numProducts) {
+    printf("\n---Customer Billing System---\n");
+    printf("Customer Name:%s\n",customer.name);
+    printf("Customer ID:%d\n",customer.customerld);
+    printf("\nProducts Purchased:\n");
+    printf("-----------------\n");
+
+
+    float subtotal = 0;
+    for (int i= 0;i< numProducts;i++) {
+       printf("%s\t\t%d\t\t%.2f\t%.2f\n",
+       products[i].productName,
+       products[i].quantity,products[i].price,
+       products[i].quantity*products[i]. price);
+          subtotal += products[i].quantity* products[i].price;
+    }
+
+
+    //Calculate Volume 10% tax)
+    float tax = subtotal*0.10;
+    float totalAmount = subtotal + tax;
+
+
+    printf("--------------------------\n");
+    printf("Subtotal: %.2f\n",subtotal);
+    printf("Tax (10%%): %2f\n",tax);
+    printf("Total Amount:%.2f\n",totalAmount);
+
+  }
+
+
+  int main(){
+     struct Customer customer;
+     struct Product products[10];
+     int numProducts;
+
+
+     //Get customer details
+     printf("Enter Customer Name:");
+     fgets(customer.name,sizeof(customer.name),stdin);
+     printf("Enter Customer Address:");
+     fgets(customer.address,
+    sizeof(customer.address),stdin);
+     printf("Enter Customer ID:");
+     scanf("%d",&customer.customerld);
+
+     //Get product details
+     printf("Enter number of products:");
+     scanf("%d",&numProducts);
+     for(int i = 0; i < numProducts; i++) {
+        printf("\nEnter details for product %d\n",i+1);
+        printf("Enter Product Name:");
+        getchar(); // consume newline left by previous input
+        fgets(products[i].productName,
+      sizeof(products[i].productName),stdin);
+        printf("Enter Quantity:");
+        scanf("%d",&products[i].quantity);
+        printf("Enter Price:");
+        scanf("%f",&products[i].price);
+
+
+     }
+
+
+
+     //Display the bill
+     displayBill(customer,products,numProducts);
+
+
+     return 0;
+
+  }
+
